@@ -42,6 +42,9 @@ package example
 // 
 case class Pos()
 
+sealed trait EscapeFail:
+end EscapeFail
+
 case class Medium(
   from: Pos,
   source: Piece,
@@ -64,6 +67,8 @@ case class Vision(
   def drop(vision: Vision): Vision =
     ???
 
+  def escape(vision: Vision): Option[EscapeFail] = ???
+
   def capture(vision: Vision): Option[Vision] = ???
 
   def apply(vision: Vision): Vision = 
@@ -74,13 +79,24 @@ end Vision
 case class Orb(all: List[Vision],
   turn: Color):
 
-  lazy val allTurn: List[Vision] = all.filter(v => v.medium.color == turn)
+  lazy val allTurn: List[Vision] = all
+    .filter(v => v.medium.color == turn)
 
-  lazy val one: List[Orb] = allTurn
-    .map(v =>
-        Orb(all.flatMap(
-          _.capture(v)
-            .map(_.apply(v))), turn))
+  lazy val one: List[Either[EscapeFail, Orb]] = allTurn
+    .map(v => {
+      val res: Either[EscapeFail, List[Vision]] = all
+        .foldLeft[Either[EscapeFail, List[Vision]]](Right(List[Vision]()))( 
+      {
+        case (Right(acc), _v) => 
+          _v.escape(v).map(Left(_)) getOrElse
+          Right(_v.capture(v)
+            .map(_.apply(v)).fold(acc)(_ :: acc))
+        case (e, _) => e
+      })
+
+      res.map(Orb(_, turn))
+
+    })
 
 
 end Orb

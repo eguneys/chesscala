@@ -1,25 +1,19 @@
-package example
+package chess
 
-sealed trait Piece:
+case class Piece(color: Color,
+  role: Role):
 
-  val color: Color
-  val role: Role
-
-  def visions(pos: Pos): List[Vision] = 
-    ???
 
 end Piece
 
-case object BlackKing extends Piece:
 
-  val color = Black
-  val role = King
-end BlackKing 
+case object Piece:
+
+  def fromChar(c: Char): Option[Piece] =
+    Role.allByPgn get c.toUpper map {
+      Piece(Color.fromWhite(c.isUpper), _)
+    }
+  
 
 
-
-case object WhiteKing extends Piece:
-  val color = White
-  val role = King
-end WhiteKing 
-
+end Piece

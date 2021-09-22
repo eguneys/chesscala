@@ -1,3 +1,5 @@
+```
+
 -- White Rook is checking Black King
 -- 3 ways to escape check
 -- Capture the checking piece
@@ -39,22 +41,6 @@
 -- checkables capture checking piece
 -- checkables interpose checking piece with blocks of vision
 
-
-
-
--- White Army
--- Black Army
-
--- Army
--- King
--- Queen
--- Rooks
--- Pawns
--- Checkables
-
-
-
-
 -- ........
 -- ........
 -- ..P.....
@@ -72,13 +58,6 @@
 -- that cannot be captured
 -- that covers kings flee squares
 -- that has no interpose
-
--- checkables
--- a piece has visions
--- a vision adds a new occupancy, 
--- and new visions, 
--- old occupancy, 
--- old visions
 
 -- Queen to king's vision with protection
 
@@ -236,4 +215,4 @@
 -- ....R... 
 
 
-
+```

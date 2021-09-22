@@ -1,4 +1,4 @@
-package example
+//package example
 
 // 
 // rook check king
@@ -39,7 +39,18 @@ package example
 // interpose -> to medium 
 // discover -> from medium
 // flee -> from source
+//
+//
 // 
+//
+//
+//
+//
+//
+//
+/*
+ *
+ *
 case class Pos()
 
 sealed trait EscapeFail:
@@ -57,6 +68,9 @@ case class Medium(
 
   def blocks: List[Piece] = medium.flatMap(_._2)
 
+
+  def direct: Boolean = blocks.isEmpty
+
 end Medium
 
 case class Vision(
@@ -67,50 +81,73 @@ case class Vision(
   def drop(vision: Vision): Vision =
     ???
 
-  def escape(vision: Vision): Option[EscapeFail] = ???
+  def escape(vision: Vision): Boolean = ???
 
   def capture(vision: Vision): Option[Vision] = ???
 
   def apply(vision: Vision): Vision = 
-    ???
-
+    ???  
 end Vision
+
+
+IamMated
+IMated
+Capture Not IamMated
+CaptureBlocks IamMated
+PinnedCantCapture IamMated
+PinnedCantGiveCheck Not IMated
+DiscoveredCheck IMated
+
 
 case class Orb(all: List[Vision],
   turn: Color):
 
-  lazy val allTurn: List[Vision] = all
-    .filter(v => v.medium.color == turn)
+  // king moves
+  // look for safe squares
+  //
+  // checkable moves
+  // look for expose discovery
+  // queen giving check
+  // 
+  // all moves
+  // king moves
+  // checkable moves
+  //
+  // capture moves
+  // interpose moves
+  // giving check moves
+  //
+  //
 
-  lazy val one: List[Either[EscapeFail, Orb]] = allTurn
-    .map(v => {
-      val res: Either[EscapeFail, List[Vision]] = all
-        .foldLeft[Either[EscapeFail, List[Vision]]](Right(List[Vision]()))( 
-      {
-        case (Right(acc), _v) => 
-          _v.escape(v).map(Left(_)) getOrElse
-          Right(_v.capture(v)
-            .map(_.apply(v)).fold(acc)(_ :: acc))
-        case (e, _) => e
-      })
+  // all safe moves
+  // look for opposing check
+  // if there is one 
+  // escape result
+  // for the check
+  // capture
+  // interpose
+  // king flee
+  // mated result
+  // otherwise
+  // all moves result
 
-      res.map(Orb(_, turn))
+  // move application
+  //
+  // one move ahead
+  // all safe moves 
+  // apply
+  // remove captured
+  // apply changes
 
-    })
+
+  lazy val moves = List[Move]
 
 
 end Orb
 
 case object Orb {
   
-  def make(pieces: Map[Pos, Piece], turn: Color): Orb =
-    val all = (pieces.flatMap {
-      case (pos, piece) =>
-        piece.visions(pos)
-    }).foldLeft(List[Vision]()) { (acc, v) =>
-        v :: acc.map(_.drop(v))
-    }
-    Orb(all, turn)
+  def make(pieces: Map[Pos, Piece], turn: Color): Orb = ???
 }
 
-
+*/

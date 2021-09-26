@@ -3,7 +3,8 @@ package chess
 case class Situation(board: Board, color: Color): 
 
 
-  lazy val moves: List[Move] = ???
+  lazy val moves: List[Move] = ??? 
+
 
 
   def apply(move: Move): Situation = ???

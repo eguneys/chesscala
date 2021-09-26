@@ -17,4 +17,11 @@ class PosTest extends ChessTest:
   }
 
 
+  "Ray" >> {
+    "Knight @ a1" >> {
+
+      Knight.rays(A1).flatMap(_.dest) must contain(allOf(C2, B3))
+    }
+  }
+
 end PosTest

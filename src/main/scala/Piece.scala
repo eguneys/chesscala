@@ -2,8 +2,9 @@ package chess
 
 case class Piece(color: Color,
   role: Role):
-
-
+ 
+  def king: Boolean = role == King
+  def queen: Boolean = role == Queen 
 end Piece
 
 

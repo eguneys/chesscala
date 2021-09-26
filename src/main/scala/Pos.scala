@@ -68,29 +68,6 @@ case object Eos:
 
   val allByInt: Map[Int, Eos] = all.map(p => p.value -> p).toMap
 
-
-  val rook: List[Dir] = List((_.succ, _.mid),
-    (_.pred, _.mid),
-    (_.mid, _.succ),
-    (_.mid, _.pred))
- 
-  val bishop: List[Dir] = List((_.succ, _.succ),
-    (_.succ, _.pred),
-    (_.pred, _.succ),
-    (_.pred, _.pred))
-
-  val king = rook ++ bishop
-  val queen = rook ++ bishop
-
-  val knight: List[Dir] = List[Dir]((_.succ2, _.succ),
-    (_.succ2, _.pred),
-    (_.pred2, _.succ),
-    (_.pred2, _.pred),
-    (_.succ, _.succ2),
-    (_.succ, _.pred2),
-    (_.pred, _.succ2),
-    (_.pred, _.pred2))
-
 end Eos
 
 type File = Eos
@@ -98,11 +75,15 @@ type Rank = Eos
 
 case class Pos(file: File, rank: Rank):
 
-  def dir(dir: Dir): Option[Pos] =
+  def apply(dir: Dir): Option[Pos] =
     for {
       f2 <- dir._1(file)
       r2 <- dir._2(rank)
     } yield Pos(f2, r2)
+
+  def cast(dir: Dir): List[Pos] =
+    this(dir) map { p =>
+      p :: p.cast(dir) } getOrElse Nil
 
 end Pos
 
@@ -186,5 +167,29 @@ case object Pos:
   val H6 = Pos(H, F)
   val H7 = Pos(H, G)
   val H8 = Pos(H, H)
+ 
+  val all = List(
+    A1, A2, A3, A4, A5, A6, A7, A8,
+    B2, B2, B3, B4, B5, B6, B7, B8,
+    C1, C2, C3, C4, C5, C6, C7, C8,
+    D1, D2, D3, D4, D5, D6, D7, D8,
+    E1, E2, E3, E4, E5, E6, E7, E8,
+    F1, F2, F3, F4, F5, F6, F7, F8,
+    G1, G2, G3, G4, G5, G6, G7, G8,
+    H1, H2, H3, H4, H5, H6, H7, H8)
 
+ 
 end Pos
+
+case class Ray(orig: Pos, 
+  dir: Dir,
+  projection: Int):
+
+  def cast: List[Pos] = orig cast dir take projection
+
+  lazy val dest: Option[Pos] = cast.lastOption
+
+  lazy val medium: List[Pos] = cast.init
+
+end Ray
+

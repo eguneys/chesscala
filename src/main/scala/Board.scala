@@ -3,12 +3,6 @@ package chess
 case class Board(pieces: Map[Pos, Piece]):
 
 
-  lazy val rays: Map[Pos, List[RayBoard]] = pieces collect { 
-    case (pos, Piece(color, role: RayRole)) =>
-    pos -> role.rays(pos).map(RayBoard(_, this))
-  }
-
-
   def apply(pos: Pos): Option[Piece] =
     pieces.get(pos)
 

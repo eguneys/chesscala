@@ -6,6 +6,13 @@
 -- Interpose a piece between the king and the checking piece
 -- Fleeing to a square where the king is not be in check
 
+-- ........ 
+-- ........
+-- ........
+-- K....b..
+-- ........
+-- ......r.
+-- ..R....k
 
 -- Flee to a square not in check
 -- Capture checking piece

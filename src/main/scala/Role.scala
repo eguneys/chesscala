@@ -40,6 +40,13 @@ case object Role:
 
   val rayRoles: List[RayRole] = List(King, Queen, Rook, Bishop, Knight)
 
+
+
+  val majors: List[Role] = List(Queen, Rook)
+  val minors: List[Role] = List(Bishop, Knight)
+  val pawns: List[Role] = List(Pawn)
+  val checkable: List[Role] = majors ++ minors ++ pawns
+
 end Role
 
 

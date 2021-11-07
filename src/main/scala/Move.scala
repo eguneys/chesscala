@@ -1,8 +1,7 @@
 package chess
 
 case class Move(situationBefore: Situation,
-  after: Board,
-  gen: MoveGen):
+  after: Board):
 
   def color = situationBefore.color
 

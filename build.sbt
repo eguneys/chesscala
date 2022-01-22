@@ -1,9 +1,16 @@
-ThisBuild / scalaVersion := "3.0.2"
+ThisBuild / scalaVersion := "2.13.8"
 
 name := "Hello"
 
-libraryDependencies += "org.specs2" % "specs2-core_3" % "5.0.0-RC-11"
+libraryDependencies ++= List(
+    "org.specs2" % "specs2-core_2.13" % "4.13.2" % Test,
+    "org.specs2" %% "specs2-cats" % "4.13.2" % Test,
+    "org.typelevel" %% "cats-core" % "2.7.0"
+)
+
 
 scalacOptions ++= Seq(
-  "-language:implicitConversions"
+  "-explaintypes",
+  "-language:implicitConversions",
+  "-language:postfixOps"
 ) 
